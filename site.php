@@ -237,3 +237,174 @@ return [
 
 
 ];
+
+
+
+
+// participants.blade.php
+@extends('layouts.public')
+@section('content')
+<div class="container">
+<style type="text/css">
+	.contact-form{ margin-top:15px;}
+.contact-form .textarea{ min-height:130px; resize:none;}
+.form-control{ box-shadow:none; border-color:#eee; height:49px;}
+.form-control:focus{ box-shadow:none; border-color:#00b09c;}
+.form-control-feedback{ line-height:50px;}
+.main-btn{ background:#00b09c; border-color:#00b09c; color:#fff;}
+.main-btn:hover{ background:#00a491;color:#fff;}
+.form-control-feedback {
+line-height: 50px;
+top: 0px;
+}
+</style>
+<div class="page-header">
+	<h4 class="text-center">Register As a Software Developer</h4>
+</div>
+
+<div class="container">
+@if (count($errors) > 0)
+        <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+      @endif
+      @if(Session::has('flash_message'))
+        <div class="alert alert-success">
+            {{Session::get('flash_message')}}
+        </div>
+      @endif
+	<div class="row">
+		<form role="form" id="contact-form" class="contact-form" action="" method="post">
+      {{ csrf_field() }}
+                    <div class="row">
+                		<div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="text" class="form-control" name="first_name" autocomplete="off" id="first_name" placeholder="First Name" value="{{ old('first_name') }}">
+                  		</div>
+                  	    </div>
+                  	    <div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="text" class="form-control" name="last_name" autocomplete="off" id="last_name" placeholder="Last Name" value="{{ old('last_name') }}">
+                  		</div>
+                  	    </div>
+                  	</div>
+                  	<div class="row">
+                  	 <div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="email" class="form-control" name="email" autocomplete="off" id="email" placeholder="E-mail"  value="{{ old('email') }}">
+                  		</div>
+                  	</div>
+                  	<div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="email" class="form-control" name="alternative_email" autocomplete="off" id="email" placeholder="Alternative E-mail"  value="{{ old('alternative_email') }}">
+                  		</div>
+                  	</div>
+                  	</div>
+                  	<div class="row">
+                  	 <div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="text" class="form-control" name="phone" autocomplete="on" id="phone" placeholder="Phone Number" value="{{ old('phone') }}">
+                  		</div>
+                  	</div>
+                  	<div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="text" class="form-control" name="alternative_phone" autocomplete="on" id="alt_phone" placeholder="Alternative Phone" value="{{ old('alternative_phone') }}">
+                  		</div>
+                  	</div>
+                  	</div>
+                  	<div class="row">
+                  	 <div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="text" class="form-control" name="occupation" autocomplete="on" id="occopation" placeholder="Occopation" value="{{ old('occopation') }}">
+                  		</div>
+                  	</div>
+                  	<div class="col-md-6">
+                  		<div class="form-group">
+                            <input type="text" class="form-control" name="company" autocomplete="on" id="company" placeholder="Company" value="{{ old('company') }}">
+                  		</div>
+                  	</div>
+                  	</div>
+
+                  	<div class="row">
+                  	 <div class="col-md-6">
+                  		<div class="form-group">
+                  		 <label><strong>Gendar</strong></label><br>
+                            <label>Male: <input type="radio"  name="gender" value="Male"></label>
+                            <label>Female: <input type="radio" name="gender" value="female"></label>
+                  		</div>
+                  	</div>
+                  	<div class="col-md-6">
+                  		<div class="form-group">
+                  		 <label><strong>Where are you interested to attend iLabs?</strong></label><br>
+                            <label>Kabul: <input type="radio"  name="location" value="Kabul"></label>
+                            <label>Herat: <input type="radio" name="location" value="Herat"></label>
+                  		</div>
+                  	</div>
+                  	</div>
+                  	<div class="row">
+                  	 <div class="col-md-6">
+                  	  <div class="form-group">
+                  	  <label class="" style="color:gray; font-size: 15px;">Interested Field.</label>
+                  	  <select class="form-control" name="interested_field">
+                        <option value="Front End Developer">Front End Developer</option>
+                        <option value="Back End Developer">Back End Developer</option>
+                        <option value="Graphic Designer">Graphic Designer</option>
+                  	  	<option value="UI Expert">UI Expert</option>
+                  	  </select>
+                  	  </div>
+                  	  </div>
+                  	</div>
+                  	<div class="row">
+                  		<div class="col-md-12">
+                  		<div class="form-group">
+                            <label>Why are you interested in participating in iLabs 2017?</label>
+                            <textarea class="form-control textarea" rows="1" name="why_you_are_interested" id="Message"> 
+                            {{ old('why_you_are_interested') }}</textarea>
+                  		</div>
+                  	</div>
+                    </div>
+                    <div class="row">
+                  		<div class="col-md-12">
+                  		<div class="form-group">
+                            <label>Have you previously participated in events like iLabs? If so, Please explain</label>
+                            <textarea class="form-control textarea" rows="1" name="participated_in_past">
+                               {{ old('participated_in_past') }}
+                            </textarea>
+                  		</div>
+                  	    </div>
+                    </div>
+                    <div class="row">
+                  		<div class="col-md-12">
+                  		<div class="form-group">
+                            <label>How do you think you can contribute to iLabs and social innovation programs in general?</label>
+                            <textarea class="form-control textarea" rows="1" name="contribution_to_ilabs">
+                              {{ old('contribution_to_ilabs') }}
+                            </textarea>
+                  		</div>
+                  	    </div>
+                    </div>
+                    <div class="row">
+                  		<div class="col-md-12">
+                  		<div class="form-group">
+                            <label>Background:</label>
+                            <textarea class="form-control textarea" rows="1" name="background" id="Message">
+                              {{ old('background') }}
+                            </textarea>
+                  		</div>
+                  	    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                  <button type="submit" class="btn main-btn pull-right">Submit</button>
+                  </div>
+                  </div>
+                </form>
+	</div>
+</div>
+</div>
+@stop
